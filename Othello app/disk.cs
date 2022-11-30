@@ -13,8 +13,8 @@ namespace Othello_app
 
         public disk(int x, int y, bool BorW)
         {
-            this.xCordinate = x;
-            this.yCordinate = y;
+            xCordinate = x;
+            yCordinate = y;
             diskCordinate = new char[xCordinate+1, yCordinate+1];
 
             if (BorW == true)

@@ -23,11 +23,8 @@ namespace Othello_app
             }
 
             // Add the starting pieces in the center
-            disk newdisk = new disk(3, 3, true);
-            board[3, 3] = newdisk.CreateDisk();
             
-
-            //board[3, 3] = 'X';
+            board[3, 3] = 'X';
             board[3, 4] = 'O';
             board[4, 3] = 'O';
             board[4, 4] = 'X';
@@ -51,6 +48,32 @@ namespace Othello_app
                 }
                 Console.Write('\n');
             }
+        }
+
+        public void UpdateBoard(int x, int y, bool BorW)
+        {
+            if(BorW == true)
+            {
+                board[x, y] = 'X';
+            }
+            if (BorW == false)
+            {
+                board[x, y] = 'O';
+            }
+        }
+
+        public void Userinput()
+        {
+            Console.WriteLine("whats the X-cordinate?");
+            int inputX = Int32.Parse( Console.ReadLine());
+            Console.WriteLine("whats the Y-cordinate?");
+            int inputY = Int32.Parse(Console.ReadLine());
+
+
+
+            UpdateBoard(inputX -1 , inputY-1, true);
+
+
         }
     }
 }
