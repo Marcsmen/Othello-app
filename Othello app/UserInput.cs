@@ -9,10 +9,12 @@ namespace Othello_app
         private int x;
         private int y;
 
-        public UserInput(int x,int y)
+        public UserInput()
         {
             this.x = x;
             this.y = y;
+
+            // test
         }
     }
 }
