@@ -14,7 +14,7 @@ namespace Othello_app
             this.x = x;
             this.y = y;
 
-            // test
+            // test if gitworks
         }
     }
 }
