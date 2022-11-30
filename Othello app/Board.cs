@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Othello_app
 {
-    class GameBoard
+    class GameBoard 
     {
         private int ROWS = 8;
         private int COLS = 8;
@@ -23,16 +23,14 @@ namespace Othello_app
             }
 
             // Add the starting pieces in the center
-            board[3, 3] = 'X';
+            disk newdisk = new disk(3, 3, true);
+            board[3, 3] = newdisk.CreateDisk();
+            
+
+            //board[3, 3] = 'X';
             board[3, 4] = 'O';
             board[4, 3] = 'O';
             board[4, 4] = 'X';
-        }
-
-        public void UpdateBoard(int x , int y)
-        {
-            board[x, y] = 'X';
-            
         }
 
         public void Print()
