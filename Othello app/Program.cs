@@ -9,14 +9,16 @@ namespace Othello_app
         {
             GameBoard game = new GameBoard();
 
+            while (true)
+            {
+                game.Print();
+                game.Userinput();
+            }
             
-            game.Print();
 
-            game.Userinput();
+            
 
-            game.Print();
-
-            Console.ReadLine();
+            
         }
     }
 }

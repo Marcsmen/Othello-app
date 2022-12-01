@@ -52,6 +52,7 @@ namespace Othello_app
 
         public void UpdateBoard(int x, int y, bool BorW)
         {
+
             if(BorW == true)
             {
                 board[x, y] = 'X';
@@ -60,19 +61,32 @@ namespace Othello_app
             {
                 board[x, y] = 'O';
             }
+
+            //Funktion som flippar disk här
         }
 
         public void Userinput()
         {
-            Console.WriteLine("whats the X-cordinate?");
-            int inputX = Int32.Parse( Console.ReadLine());
-            Console.WriteLine("whats the Y-cordinate?");
+            
+            try
+            { 
+            Console.Write("whats the X-cordinate?");
+            int inputX = Int32.Parse(Console.ReadLine()); 
+            
+            Console.Write("whats the Y-cordinate?");
             int inputY = Int32.Parse(Console.ReadLine());
 
+            // validmove funktion här
+            // någonting som håller reda på vems tur det är
 
+            UpdateBoard(inputX-1 , inputY-1, true);
+            }
 
-            UpdateBoard(inputX -1 , inputY-1, true);
-
+            catch (SystemException)
+            {
+                Console.WriteLine("Please enter valid numbers!");
+                Userinput();
+            }
 
         }
     }

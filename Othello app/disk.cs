@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Othello_app
 {
-    class disk 
+    class Disk 
     {
         
         private int xCordinate;
         private int yCordinate;
         private char[,] diskCordinate;       
 
-        public disk(int x, int y, bool BorW)
+        public Disk(int x, int y, bool BorW)
         {
             xCordinate = x;
             yCordinate = y;
