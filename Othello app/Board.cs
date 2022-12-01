@@ -28,8 +28,9 @@ namespace Othello_app
             board[3, 4] = 'O';
             board[4, 3] = 'O';
             board[4, 4] = 'X';
-            board[5, 5] = 'O';
-          
+            board[6, 6] = 'O';
+
+
         }
 
         public void Print()
@@ -64,7 +65,7 @@ namespace Othello_app
                 board[x, y] = 'O';
             }
 
-            //Funktion som flippar disk här
+            FlipDisks(x, y);
         }
 
         public void Userinput()
@@ -95,10 +96,12 @@ namespace Othello_app
         public void ValidMove(int inputX, int inputY)
         {
             
+            // Checks if placement of new disk is adjecent to oponents disk
+            // hard coded for opponent being 'O'
                 
             if (board[inputX, inputY] == ' ')
             {
-                if (board[inputX, inputY -1 ] == 'O')
+                if (board[inputX, inputY -1 ] == 'O') // outof bounds error if input is 0 
                 {
                     UpdateBoard(inputX, inputY, true);
                 }
@@ -151,6 +154,11 @@ namespace Othello_app
             {
                 Console.WriteLine("\n invalid move, please try again. "  );
             }
+        }
+
+        public void FlipDisks(int inputX, int inputY)
+        {
+            
         }
 
         
