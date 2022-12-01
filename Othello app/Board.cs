@@ -11,7 +11,7 @@ namespace Othello_app
         private char[,] board;
         public GameBoard()
         {
-            board = new char[ROWS, COLS];
+            board = new char[COLS, ROWS];
 
             // initialize board to have all blank spaces
             for (int i = 0; i < COLS; i++)
@@ -29,6 +29,7 @@ namespace Othello_app
             board[4, 3] = 'O';
             board[4, 4] = 'X';
             board[5, 5] = 'O';
+          
         }
 
         public void Print()
@@ -135,6 +136,11 @@ namespace Othello_app
                 else if (board[inputX - 1, inputY - 1] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                }
+
+                else
+                {
+                    Console.WriteLine("Try again");
                 }
 
 
