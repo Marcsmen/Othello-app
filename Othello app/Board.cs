@@ -28,6 +28,7 @@ namespace Othello_app
             board[3, 4] = 'O';
             board[4, 3] = 'O';
             board[4, 4] = 'X';
+            board[5, 5] = 'O';
         }
 
         public void Print()
@@ -71,10 +72,10 @@ namespace Othello_app
             try
             {
                 Console.Write("whats the X-cordinate?");
-                int inputX  = Int32.Parse(Console.ReadLine())-1;
+                int inputY  = Int32.Parse(Console.ReadLine())-1;
 
                 Console.Write("whats the Y-cordinate?");
-                int inputY  = Int32.Parse(Console.ReadLine())-1;
+                int inputX  = Int32.Parse(Console.ReadLine())-1;
 
                 // någonting som håller reda på vems tur det är
 
@@ -92,21 +93,60 @@ namespace Othello_app
 
         public void ValidMove(int inputX, int inputY)
         {
-            if(board[inputX, inputY] == ' ')
+            
+                
+            if (board[inputX, inputY] == ' ')
             {
+                if (board[inputX, inputY -1 ] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX + 1, inputY - 1] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX + 1, inputY] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX + 1, inputY + 1] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX, inputY + 1] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX - 1, inputY + 1] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX - 1, inputY] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
+
+                else if (board[inputX - 1, inputY - 1] == 'O')
+                {
+                    UpdateBoard(inputX, inputY, true);
+                }
 
 
-                UpdateBoard(inputX, inputY, true);
+
+
             }
             else
             {
-                Console.WriteLine("\n Place not empty, please try again. "  );
+                Console.WriteLine("\n invalid move, please try again. "  );
             }
         }
 
-        public void FlipDisks()
-        {
-
-        }
+        
     }
 }
