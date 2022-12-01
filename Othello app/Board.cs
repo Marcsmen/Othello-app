@@ -67,26 +67,45 @@ namespace Othello_app
 
         public void Userinput()
         {
-            
+
             try
-            { 
-            Console.Write("whats the X-cordinate?");
-            int inputX = Int32.Parse(Console.ReadLine()); 
-            
-            Console.Write("whats the Y-cordinate?");
-            int inputY = Int32.Parse(Console.ReadLine());
+            {
+                Console.Write("whats the X-cordinate?");
+                int inputX  = Int32.Parse(Console.ReadLine())-1;
 
-            // validmove funktion här
-            // någonting som håller reda på vems tur det är
+                Console.Write("whats the Y-cordinate?");
+                int inputY  = Int32.Parse(Console.ReadLine())-1;
 
-            UpdateBoard(inputX-1 , inputY-1, true);
+                // någonting som håller reda på vems tur det är
+
+                ValidMove(inputX, inputY);
             }
+
 
             catch (SystemException)
             {
-                Console.WriteLine("Please enter valid numbers!");
+                Console.WriteLine("Please enter valid numbers!\n");
                 Userinput();
             }
+
+        }
+
+        public void ValidMove(int inputX, int inputY)
+        {
+            if(board[inputX, inputY] == ' ')
+            {
+
+
+                UpdateBoard(inputX, inputY, true);
+            }
+            else
+            {
+                Console.WriteLine("\n Place not empty, please try again. "  );
+            }
+        }
+
+        public void FlipDisks()
+        {
 
         }
     }
