@@ -6,8 +6,8 @@ namespace Othello_app
 {
     class GameBoard 
     {
-        private int ROWS = 8;
-        private int COLS = 8;
+        private int ROWS = 10;
+        private int COLS = 10;
         private char[,] board;
         public GameBoard()
         {
@@ -24,11 +24,11 @@ namespace Othello_app
 
             // Add the starting pieces in the center
             
-            board[3, 3] = 'X';
-            board[3, 4] = 'O';
-            board[4, 3] = 'O';
             board[4, 4] = 'X';
-            board[6, 6] = 'O';
+            board[4, 5] = 'O';
+            board[5, 4] = 'O';
+            board[5, 5] = 'X';
+            
 
 
         }
@@ -36,16 +36,16 @@ namespace Othello_app
         public void Print()
         {
             Console.Write("  ");
-            for (int k = 1; k <= COLS; k++)
+            for (int k = 1; k < COLS -1; k++)
             {
-                Console.Write(" " + k + " ");
+                Console.Write(" " + k  + " ");
             }
             Console.Write('\n');
 
-            for (int i = 0; i < COLS; i++)
+            for (int i = 1; i < COLS -1; i++)
             {
-                Console.Write(i + 1 + " ");
-                for (int j = 0; j < ROWS; j++)
+                Console.Write(i  + " ");
+                for (int j = 1; j < ROWS -1; j++)
                 {
                     Console.Write("[" + board[i, j] + "]");
                 }
@@ -65,7 +65,7 @@ namespace Othello_app
                 board[x, y] = 'O';
             }
 
-            FlipDisks(x, y);
+            
         }
 
         public void Userinput()
@@ -74,10 +74,10 @@ namespace Othello_app
             try
             {
                 Console.Write("whats the X-cordinate?");
-                int inputY  = Int32.Parse(Console.ReadLine())-1;
+                int inputY  = Int32.Parse(Console.ReadLine());
 
                 Console.Write("whats the Y-cordinate?");
-                int inputX  = Int32.Parse(Console.ReadLine())-1;
+                int inputX  = Int32.Parse(Console.ReadLine());
 
                 // någonting som håller reda på vems tur det är
 
@@ -99,46 +99,55 @@ namespace Othello_app
             // Checks if placement of new disk is adjecent to oponents disk
             // hard coded for opponent being 'O'
                 
-            if (board[inputX, inputY] == ' ')
+            if (board[inputX, inputY] == ' ' )
             {
-                if (board[inputX, inputY -1 ] == 'O') // outof bounds error if input is 0 
+                if (board[inputX, inputY -1 ] == 'O')  
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX, inputY-1, true);
+
                 }
 
                 else if (board[inputX + 1, inputY - 1] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX + 1, inputY - 1, true);
                 }
 
                 else if (board[inputX + 1, inputY] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX + 1, inputY, true);
                 }
 
                 else if (board[inputX + 1, inputY + 1] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX + 1, inputY + 1, true);
                 }
 
                 else if (board[inputX, inputY + 1] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX, inputY + 1, true);
                 }
 
                 else if (board[inputX - 1, inputY + 1] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX - 1, inputY + 1, true);
                 }
 
                 else if (board[inputX - 1, inputY] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX - 1, inputY, true);
                 }
 
                 else if (board[inputX - 1, inputY - 1] == 'O')
                 {
                     UpdateBoard(inputX, inputY, true);
+                    UpdateBoard(inputX - 1, inputY - 1, true);
                 }
 
                 else
@@ -156,10 +165,7 @@ namespace Othello_app
             }
         }
 
-        public void FlipDisks(int inputX, int inputY)
-        {
-            
-        }
+        
 
         
     }
