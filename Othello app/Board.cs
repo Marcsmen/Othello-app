@@ -29,8 +29,6 @@ namespace Othello_app
             board[5, 4] = 'O';
             board[5, 5] = 'X';
             
-
-
         }
 
         public void Print()
@@ -59,113 +57,124 @@ namespace Othello_app
             if(BorW == true)
             {
                 board[x, y] = 'X';
+                
             }
-            if (BorW == false)
+            else if (BorW == false)
             {
                 board[x, y] = 'O';
+                
             }
-
-            
+  
         }
 
-        public void Userinput()
+        public void Userinput(bool BorW)
         {
-
             try
             {
-                Console.Write("whats the X-cordinate?");
+                if(BorW == true)
+                {
+                    Console.WriteLine("X's Turn"); 
+                }
+                else
+                {
+                    Console.WriteLine("O's Turn");
+                }
+
+                Console.Write("Which Column?");
                 int inputY  = Int32.Parse(Console.ReadLine());
 
-                Console.Write("whats the Y-cordinate?");
+                Console.Write("Which Row?");
                 int inputX  = Int32.Parse(Console.ReadLine());
 
-                // någonting som håller reda på vems tur det är
+                
+                ValidMove(inputX, inputY, BorW);
 
-                ValidMove(inputX, inputY);
+                
+
             }
-
-
             catch (SystemException)
             {
                 Console.WriteLine("Please enter valid numbers!\n");
-                Userinput();
+                Userinput(BorW);
             }
 
         }
 
-        public void ValidMove(int inputX, int inputY)
+        public void ValidMove(int inputX, int inputY, bool BorW)
         {
-            
+
             // Checks if placement of new disk is adjecent to oponents disk
-            // hard coded for opponent being 'O'
+            char opponent = 'O';
+            
+            if (BorW == false)
+            {
+                opponent = 'X';
+            }
+            
                 
             if (board[inputX, inputY] == ' ' )
             {
-                if (board[inputX, inputY -1 ] == 'O')  
+                if (board[inputX, inputY -1 ] == opponent)  
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX, inputY-1, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX, inputY-1, BorW);
 
                 }
 
-                else if (board[inputX + 1, inputY - 1] == 'O')
+                if (board[inputX + 1, inputY - 1] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX + 1, inputY - 1, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX + 1, inputY - 1, BorW);
                 }
 
-                else if (board[inputX + 1, inputY] == 'O')
+                if (board[inputX + 1, inputY] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX + 1, inputY, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX + 1, inputY, BorW);
                 }
 
-                else if (board[inputX + 1, inputY + 1] == 'O')
+                if (board[inputX + 1, inputY + 1] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX + 1, inputY + 1, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX + 1, inputY + 1, BorW);
                 }
 
-                else if (board[inputX, inputY + 1] == 'O')
+                if (board[inputX, inputY + 1] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX, inputY + 1, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX, inputY + 1, BorW);
                 }
 
-                else if (board[inputX - 1, inputY + 1] == 'O')
+                if (board[inputX - 1, inputY + 1] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX - 1, inputY + 1, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX - 1, inputY + 1, BorW);
                 }
 
-                else if (board[inputX - 1, inputY] == 'O')
+                if (board[inputX - 1, inputY] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX - 1, inputY, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX - 1, inputY, BorW);
                 }
 
-                else if (board[inputX - 1, inputY - 1] == 'O')
+                if (board[inputX - 1, inputY - 1] == opponent)
                 {
-                    UpdateBoard(inputX, inputY, true);
-                    UpdateBoard(inputX - 1, inputY - 1, true);
+                    UpdateBoard(inputX, inputY, BorW);
+                    UpdateBoard(inputX - 1, inputY - 1, BorW);
                 }
 
-                else
-                {
-                    Console.WriteLine("Try again");
-                }
-
-
-
+                
 
             }
             else
             {
                 Console.WriteLine("\n invalid move, please try again. "  );
+                Userinput(BorW);
+
             }
         }
 
-        
+       
 
         
     }

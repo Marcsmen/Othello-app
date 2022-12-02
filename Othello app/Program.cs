@@ -5,19 +5,30 @@ namespace Othello_app
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            
+            bool Turn = true;
             GameBoard game = new GameBoard();
-
+          
             while (true)
             {
-                game.Print();
-                game.Userinput();
+                
+                if(Turn == true)
+                {
+                    game.Print();
+                    game.Userinput(Turn);
+                    Turn = false;
+                }
+                else 
+                {
+                    game.Print();
+                    game.Userinput(Turn);
+                    Turn = true;
+                }
+
+                
             }
-            
-
-            
-
             
         }
     }
