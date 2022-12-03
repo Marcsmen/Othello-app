@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Othello_app
@@ -9,6 +10,7 @@ namespace Othello_app
         private int ROWS = 10;
         private int COLS = 10;
         private char[,] board;
+       
         public GameBoard()
         {
             board = new char[COLS, ROWS];
@@ -28,6 +30,10 @@ namespace Othello_app
             board[4, 5] = 'O';
             board[5, 4] = 'O';
             board[5, 5] = 'X';
+
+            board[4, 6] = 'O';
+            board[8, 7] = 'O';
+            board[1, 1] = 'O';
             
         }
 
@@ -69,6 +75,7 @@ namespace Othello_app
 
         public void Userinput(bool BorW)
         {
+            
             try
             {
                 if(BorW == true)
@@ -87,7 +94,16 @@ namespace Othello_app
                 int inputX  = Int32.Parse(Console.ReadLine());
 
                 
-                ValidMove(inputX, inputY, BorW);
+                if (!IsValidMove(inputX, inputY, BorW))
+                {
+                    Userinput(BorW);
+                }
+                else
+                {
+                    UpdateBoard(inputX, inputY, BorW);
+                    FlipDisks(inputX, inputY, BorW);
+                }
+
 
                 
 
@@ -99,10 +115,105 @@ namespace Othello_app
             }
 
         }
+        public bool IsValidMove(int inputX, int inputY, bool BorW)
+        {
+            char opponent = 'O';
+
+            if (BorW == false)
+            {
+                opponent = 'X';
+            }
+
+            if (board[inputX, inputY] == ' ')
+            {
+                
+                if (board[inputX, inputY - 1] == opponent)
+                {
+                    for (int i = 2; inputY - i >= 1; i++)
+                    {
+                        if (board[inputX, inputY - i] != opponent)
+                        {
+                            if(board[inputX, inputY - i] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        } 
+
+                    }
+                    
+
+                }
+
+                if (board[inputX + 1, inputY - 1] == opponent)
+                {
+                    for (int i = 2; inputY - i >= 1 && inputX + i <= 9; i++)
+                    {
+                        if (board[inputX + i, inputY - i] != opponent)
+                        {
+                            if (board[inputX + i, inputY - i] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+
+                    }
+                }
+
+                if (board[inputX + 1, inputY] == opponent)
+                {
+                    return true;
+                }
+
+                if (board[inputX + 1, inputY + 1] == opponent)
+                {
+                    return true;
+                }
+
+                if (board[inputX, inputY + 1] == opponent)
+                {
+                    return true;
+                }
+
+                if (board[inputX - 1, inputY + 1] == opponent)
+                {
+                    return true;
+                }
+
+                if (board[inputX - 1, inputY] == opponent)
+                {
+                    return true;
+                }
+
+                if (board[inputX - 1, inputY - 1] == opponent)
+                {
+                    return true;
+                }
+                
+                
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("\n invalid move, please try again. ");
+                return false;
+
+            }
+        }
+
+
+    
+
 
         public void ValidMove(int inputX, int inputY, bool BorW)
         {
-
+            Console.WriteLine(inputX+ " " + inputY + " " + BorW);
+            
             // Checks if placement of new disk is adjecent to oponents disk
             char opponent = 'O';
             
@@ -112,12 +223,12 @@ namespace Othello_app
             }
             
                 
-            if (board[inputX, inputY] == ' ' )
+            if (board[inputX, inputY] == ' ')
             {
                 if (board[inputX, inputY -1 ] == opponent)  
                 {
                     UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX, inputY-1, BorW);
+                    UpdateBoard(inputX, inputY-1, BorW); // Just changes the disks next to [x,y] to players type, not final.
 
                 }
 
@@ -163,18 +274,50 @@ namespace Othello_app
                     UpdateBoard(inputX - 1, inputY - 1, BorW);
                 }
 
-                
+                else {
+                    Print();
+                    Console.WriteLine("Try again :::::::::::::::::::::::::::::::::::::::::::");
+                    Userinput(BorW);
+                }
 
             }
             else
             {
                 Console.WriteLine("\n invalid move, please try again. "  );
-                Userinput(BorW);
-
+           
             }
         }
 
-       
+       public void FlipDisks(int inputX, int inputY, bool BorW)
+        {
+            char own = 'X';
+            char opponent = 'O';
+
+            if (BorW == false)
+            {
+                own = 'O';
+                opponent = 'X';
+            }
+
+            if (board[inputX, inputY - 1] == opponent)
+            {
+                for (int i = 1; inputY - i >= 1; i++)
+                {
+                    if (board[inputX, inputY - i] == opponent)
+                    {
+                        board[inputX, inputY - i] = own;
+                        
+                    }
+                    else if(board[inputX, inputY - i] != opponent)
+                    {
+                        break;
+                    }
+
+                }
+
+
+            }
+        }
 
         
     }

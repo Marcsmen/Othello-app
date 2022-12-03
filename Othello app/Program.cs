@@ -13,7 +13,7 @@ namespace Othello_app
           
             while (true)
             {
-                
+                Console.WriteLine("In main loop");
                 if(Turn == true)
                 {
                     game.Print();
