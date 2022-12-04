@@ -104,9 +104,6 @@ namespace Othello_app
                     FlipDisks(inputX, inputY, BorW);
                 }
 
-
-                
-
             }
             catch (SystemException)
             {
@@ -117,8 +114,8 @@ namespace Othello_app
         }
         public bool IsValidMove(int inputX, int inputY, bool BorW)
         {
+            
             char opponent = 'O';
-
             if (BorW == false)
             {
                 opponent = 'X';
@@ -126,23 +123,20 @@ namespace Othello_app
 
             if (board[inputX, inputY] == ' ')
             {
-                
+
                 if (board[inputX, inputY - 1] == opponent)
                 {
                     for (int i = 2; inputY - i >= 1; i++)
                     {
                         if (board[inputX, inputY - i] != opponent)
                         {
-                            if(board[inputX, inputY - i] != ' ')
+                            if (board[inputX, inputY - i] != ' ')
                             {
                                 return true;
                             }
                             return false;
-                        } 
-
+                        }
                     }
-                    
-
                 }
 
                 if (board[inputX + 1, inputY - 1] == opponent)
@@ -163,132 +157,112 @@ namespace Othello_app
 
                 if (board[inputX + 1, inputY] == opponent)
                 {
-                    return true;
+                    for (int i = 2; inputX + i <= 9; i++)
+                    {
+                        if (board[inputX + i, inputY] != opponent)
+                        {
+                            if (board[inputX + i, inputY] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
                 }
 
                 if (board[inputX + 1, inputY + 1] == opponent)
                 {
-                    return true;
+                    for (int i = 2; inputY + i >= 9 && inputX + i <= 9; i++)
+                    {
+                        if (board[inputX + i, inputY + i] != opponent)
+                        {
+                            if (board[inputX + i, inputY + i] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+
+                    }
                 }
 
                 if (board[inputX, inputY + 1] == opponent)
                 {
-                    return true;
+                    for (int i = 2; inputY + i <= 9; i++)
+                    {
+                        if (board[inputX, inputY + i] != opponent)
+                        {
+                            if (board[inputX, inputY + i] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
                 }
 
                 if (board[inputX - 1, inputY + 1] == opponent)
                 {
-                    return true;
+                    for (int i = 2; inputX - i >= 1 && inputY + i <= 9; i++)
+                    {
+                        if (board[inputX - i, inputY + i] != opponent)
+                        {
+                            if (board[inputX - i, inputY + i] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+
+                    }
                 }
 
                 if (board[inputX - 1, inputY] == opponent)
                 {
-                    return true;
+                    for (int i = 2; inputX - i <= 1; i++)
+                    {
+                        if (board[inputX - 1, inputY] != opponent)
+                        {
+                            if (board[inputX - 1, inputY] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+                        
+                    }
                 }
 
                 if (board[inputX - 1, inputY - 1] == opponent)
                 {
-                    return true;
+                    for (int i = 2; inputX - i >= 1 && inputY - i <= 1; i++)
+                    {
+                        if (board[inputX - i, inputY - i] != opponent)
+                        {
+                            if (board[inputX - i, inputY - i] != ' ')
+                            {
+                                return true;
+                            }
+                            return false;
+                        }
+
+                    }
                 }
-                
-                
+
                 else
                 {
-                    return false;
+                    
                 }
 
             }
             else
             {
-                Console.WriteLine("\n invalid move, please try again. ");
+                Console.WriteLine("Invalid move, please try again. ");
                 return false;
-
             }
         }
 
-
-    
-
-
-        public void ValidMove(int inputX, int inputY, bool BorW)
-        {
-            Console.WriteLine(inputX+ " " + inputY + " " + BorW);
-            
-            // Checks if placement of new disk is adjecent to oponents disk
-            char opponent = 'O';
-            
-            if (BorW == false)
-            {
-                opponent = 'X';
-            }
-            
-                
-            if (board[inputX, inputY] == ' ')
-            {
-                if (board[inputX, inputY -1 ] == opponent)  
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX, inputY-1, BorW); // Just changes the disks next to [x,y] to players type, not final.
-
-                }
-
-                if (board[inputX + 1, inputY - 1] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX + 1, inputY - 1, BorW);
-                }
-
-                if (board[inputX + 1, inputY] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX + 1, inputY, BorW);
-                }
-
-                if (board[inputX + 1, inputY + 1] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX + 1, inputY + 1, BorW);
-                }
-
-                if (board[inputX, inputY + 1] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX, inputY + 1, BorW);
-                }
-
-                if (board[inputX - 1, inputY + 1] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX - 1, inputY + 1, BorW);
-                }
-
-                if (board[inputX - 1, inputY] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX - 1, inputY, BorW);
-                }
-
-                if (board[inputX - 1, inputY - 1] == opponent)
-                {
-                    UpdateBoard(inputX, inputY, BorW);
-                    UpdateBoard(inputX - 1, inputY - 1, BorW);
-                }
-
-                else {
-                    Print();
-                    Console.WriteLine("Try again :::::::::::::::::::::::::::::::::::::::::::");
-                    Userinput(BorW);
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("\n invalid move, please try again. "  );
-           
-            }
-        }
-
-       public void FlipDisks(int inputX, int inputY, bool BorW)
+        public void FlipDisks(int inputX, int inputY, bool BorW)
         {
             char own = 'X';
             char opponent = 'O';

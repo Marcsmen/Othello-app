@@ -7,29 +7,29 @@ namespace Othello_app
     {
         static void Main()
         {
-            
+
             bool Turn = true;
             GameBoard game = new GameBoard();
-          
+
             while (true)
             {
                 Console.WriteLine("In main loop");
-                if(Turn == true)
+                if (Turn == true)
                 {
                     game.Print();
                     game.Userinput(Turn);
                     Turn = false;
                 }
-                else 
+                else
                 {
                     game.Print();
                     game.Userinput(Turn);
                     Turn = true;
                 }
 
-                
+
             }
-            
+
         }
     }
 }
