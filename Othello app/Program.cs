@@ -9,7 +9,7 @@ namespace Othello_app
             bool ContinueGame = true;
             bool Turn = true;
             GameBoard game = new GameBoard();
-
+            Console.SetWindowSize(30, 30);
 
             while (ContinueGame)
             {
@@ -17,6 +17,7 @@ namespace Othello_app
 
                 if (game.EndGame(Turn))
                 {
+                    Console.Clear();
                     if (Turn == true)
                     {
                         game.Score();
