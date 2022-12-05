@@ -1,35 +1,45 @@
 ﻿using System;
 
 namespace Othello_app
-
 {
     class Program
     {
         static void Main()
         {
-
+            bool ContinueGame = true;
             bool Turn = true;
             GameBoard game = new GameBoard();
 
-            while (true)
+
+            while (ContinueGame)
             {
-                Console.WriteLine("In main loop");
-                if (Turn == true)
+                Console.WriteLine();
+
+                if (game.EndGame(Turn))
                 {
-                    game.Print();
-                    game.Userinput(Turn);
-                    Turn = false;
+                    if (Turn == true)
+                    {
+                        game.Score();
+                        game.Print();
+                        game.Userinput(Turn);
+                        Turn = false;
+                    }
+                    else
+                    {
+                        game.Score();
+                        game.Print();
+                        game.Userinput(Turn);
+                        Turn = true;
+                    }
                 }
                 else
                 {
                     game.Print();
-                    game.Userinput(Turn);
-                    Turn = true;
+                    Console.WriteLine("Game has ended!");
+                    ContinueGame = false;
                 }
 
-
             }
-
         }
     }
 }

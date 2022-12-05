@@ -7,15 +7,15 @@ namespace Othello_app
 {
     class GameBoard 
     {
-        private int ROWS = 10;
-        private int COLS = 10;
+        const int ROWS = 10;  //Actual playable board is only 8x8, 
+        const int COLS = 10;  //needs to be 10x10 to validate move in all directions.
         private char[,] board;
        
         public GameBoard()
         {
             board = new char[COLS, ROWS];
 
-            // initialize board to have all blank spaces
+            // Initialize board to have all blank spaces
             for (int i = 0; i < COLS; i++)
             {
                 for (int j = 0; j < ROWS; j++)
@@ -30,13 +30,10 @@ namespace Othello_app
             board[4, 5] = 'O';
             board[5, 4] = 'O';
             board[5, 5] = 'X';
-
-            board[4, 6] = 'O';
-            board[8, 7] = 'O';
-            board[1, 1] = 'O';
-            
+  
         }
 
+        //Prints current state of the board
         public void Print()
         {
             Console.Write("  ");
@@ -57,6 +54,7 @@ namespace Othello_app
             }
         }
 
+        //Updates board in specific coordinates to either X or O.
         public void UpdateBoard(int x, int y, bool BorW)
         {
 
@@ -73,6 +71,8 @@ namespace Othello_app
   
         }
 
+        // Takes user input and first makes sure the input is and int,
+        // then calls IsValidMove to check if the move makes any sence.
         public void Userinput(bool BorW)
         {
             
@@ -96,6 +96,7 @@ namespace Othello_app
                 
                 if (!IsValidMove(inputX, inputY, BorW))
                 {
+                    Console.WriteLine("Invalid move, please try again! ");
                     Userinput(BorW);
                 }
                 else
@@ -134,7 +135,7 @@ namespace Othello_app
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
                     }
                 }
@@ -149,7 +150,7 @@ namespace Othello_app
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
 
                     }
@@ -165,14 +166,14 @@ namespace Othello_app
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
                     }
                 }
 
                 if (board[inputX + 1, inputY + 1] == opponent)
                 {
-                    for (int i = 2; inputY + i >= 9 && inputX + i <= 9; i++)
+                    for (int i = 2; inputY + i <= 9 && inputX + i <= 9; i++)
                     {
                         if (board[inputX + i, inputY + i] != opponent)
                         {
@@ -180,7 +181,7 @@ namespace Othello_app
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
 
                     }
@@ -196,7 +197,7 @@ namespace Othello_app
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
                     }
                 }
@@ -211,7 +212,7 @@ namespace Othello_app
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
 
                     }
@@ -219,15 +220,15 @@ namespace Othello_app
 
                 if (board[inputX - 1, inputY] == opponent)
                 {
-                    for (int i = 2; inputX - i <= 1; i++)
+                    for (int i = 2; inputX - i >= 1; i++)
                     {
-                        if (board[inputX - 1, inputY] != opponent)
+                        if (board[inputX - i, inputY] != opponent)
                         {
-                            if (board[inputX - 1, inputY] != ' ')
+                            if (board[inputX - i, inputY] != ' ')
                             {
                                 return true;
                             }
-                            return false;
+                            break;
                         }
                         
                     }
@@ -235,7 +236,7 @@ namespace Othello_app
 
                 if (board[inputX - 1, inputY - 1] == opponent)
                 {
-                    for (int i = 2; inputX - i >= 1 && inputY - i <= 1; i++)
+                    for (int i = 2; inputX - i >= 1 && inputY - i >= 1; i++)
                     {
                         if (board[inputX - i, inputY - i] != opponent)
                         {
@@ -249,19 +250,17 @@ namespace Othello_app
                     }
                 }
 
-                else
-                {
-                    
-                }
-
+                
+                return false;
             }
             else
             {
-                Console.WriteLine("Invalid move, please try again. ");
+                
                 return false;
             }
         }
 
+        //Flips the appropriate "disks"
         public void FlipDisks(int inputX, int inputY, bool BorW)
         {
             char own = 'X';
@@ -275,24 +274,298 @@ namespace Othello_app
 
             if (board[inputX, inputY - 1] == opponent)
             {
+                bool validMove = false;
                 for (int i = 1; inputY - i >= 1; i++)
                 {
-                    if (board[inputX, inputY - i] == opponent)
-                    {
-                        board[inputX, inputY - i] = own;
-                        
-                    }
-                    else if(board[inputX, inputY - i] != opponent)
+                    if (board[inputX, inputY - i] == ' ')
                     {
                         break;
                     }
+                    if (board[inputX, inputY - i] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputY - i >= 1; i++)
+                    {
+                        if (board[inputX, inputY - i] == opponent)
+                        {
+                            board[inputX, inputY - i] = own; 
+                        }
+                        else if(board[inputX, inputY - i] != opponent)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (board[inputX + 1, inputY - 1] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputX + i <= 9 && inputY - i >= 1; i++)
+                {
+                    if (board[inputX + i, inputY - i] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX + i, inputY - i] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1;inputX + i <= 9 && inputY - i >= 1; i++)
+                    {
+                        if (board[inputX + i, inputY - i] == opponent)
+                        {
+                            board[inputX + i, inputY - i] = own;
+                        }
+                        else if (board[inputX + i, inputY - i] != opponent)
+                        {
+                            break;
+                        }
 
+                    }
                 }
 
+            }
+            if (board[inputX + 1, inputY] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputX + i <= 9; i++)
+                {
+                    if (board[inputX + i, inputY] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX + i, inputY] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputX + i <= 9; i++)
+                    {
+                        if (board[inputX + i, inputY] == opponent)
+                        {
+                            board[inputX + i, inputY] = own;
+                        }
+                        else if (board[inputX + i, inputY] != opponent)
+                        {
+                            break;
+                        }
+
+                    }
+                }
 
             }
+            if (board[inputX + 1, inputY + 1] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputX + i <= 9 && inputY + i <= 9; i++)
+                {
+                    if (board[inputX + i, inputY + i] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX + i, inputY + i] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputX + i <= 9 && inputY + i <= 9; i++)
+                    {
+                        if (board[inputX + i, inputY + i] == opponent)
+                        {
+                            board[inputX + i, inputY + i] = own;
+                        }
+                        else if (board[inputX + i, inputY + i] != opponent)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (board[inputX, inputY + 1] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputY + i <= 9; i++)
+                {
+                    if (board[inputX, inputY + i] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX, inputY + i] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputY + i <= 9; i++)
+                    {
+                        if (board[inputX, inputY + i] == opponent)
+                        {
+                            board[inputX, inputY + i] = own;
+                        }
+                        else if (board[inputX, inputY + i] != opponent)
+                        {
+                            break;
+                        }
+
+                    }
+                }
+            }
+            if (board[inputX - 1, inputY + 1] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputX - i >= 1 && inputY + i <= 9; i++)
+                {
+                    if (board[inputX - i, inputY + i] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX - i, inputY + i] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputX - i >= 1 && inputY + i <= 9; i++)
+                    {
+                        if (board[inputX - i, inputY + i] == opponent)
+                        {
+                            board[inputX - i, inputY + i] = own;
+
+                        }
+                        else if (board[inputX - i, inputY + i] != opponent)
+                        {
+                            break;
+                        }
+
+                    }
+                }
+            }
+            if (board[inputX - 1, inputY] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputX - i >= 1; i++)
+                {
+                    if (board[inputX - i, inputY] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX - i, inputY] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputX - i >= 1; i++)
+                    {
+                        if (board[inputX - i, inputY] == opponent)
+                        {
+                            board[inputX - i, inputY] = own;
+
+                        }
+                        else if (board[inputX - i, inputY] != opponent)
+                        {
+                            break;
+                        }
+
+                    }
+                }
+            }
+            if (board[inputX - 1, inputY - 1] == opponent)
+            {
+                bool validMove = false;
+                for (int i = 1; inputX - i >= 1 && inputY - i >= 1; i++)
+                {
+                    if (board[inputX - i, inputY - i] == ' ')
+                    {
+                        break;
+                    }
+                    if (board[inputX - i, inputY - i] == own)
+                    {
+                        validMove = true;
+                        break;
+                    }
+                }
+                if (validMove)
+                {
+                    for (int i = 1; inputX - i >= 1 && inputY - i >=1; i++)
+                    {
+                        if (board[inputX - i, inputY - i] == opponent)
+                        {
+                            board[inputX - i, inputY- i] = own;
+
+                        }
+                        else if (board[inputX - i, inputY - i] != opponent)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+
         }
 
-        
+        public bool EndGame(bool BorW)
+        {
+            bool AnyValidMoves = false;
+            bool FullBoard = true;
+            for (int i = 1; i < 9; i++)
+            {
+                for (int j = 1; j < 9; j++)
+                {
+                    if (IsValidMove(i, j, BorW))
+                    {
+                        AnyValidMoves = true;
+                    }  
+                    if (board[i,j] == ' ')
+                    {
+                        FullBoard= false;
+                    }
+                }
+            }
+            return AnyValidMoves;
+        }
+        public void Score()
+        {
+            int ScoreO = 0;
+            int ScoreX = 0;
+            for (int i = 1; i < 9; i++)
+            {
+                for (int j = 1; j < 9; j++)
+                {
+                    if (board[i,j] == 'O')
+                    {
+                        ScoreO++;
+                    }
+                    if (board[i, j] == 'X')
+                    {
+                        ScoreX++;
+                    }
+                }
+            }
+            Console.WriteLine($"   Scoreboard:  O:{ScoreO}  X:{ScoreX}");
+        }
     }
 }
