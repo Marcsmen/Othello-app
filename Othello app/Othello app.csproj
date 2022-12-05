@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+	<WarningsAsErrors>Nullable</WarningsAsErrors>
+	<Nullable>enable</Nullable>  
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Othello_app</RootNamespace>
   </PropertyGroup>
