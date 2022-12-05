@@ -35,7 +35,8 @@ namespace Othello_app
                 else
                 {
                     game.Print();
-                    Console.WriteLine("Game has ended!");
+                    Console.WriteLine("   Game has ended!");
+                    game.Score();
                     ContinueGame = false;
                 }
 

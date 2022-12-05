@@ -30,6 +30,7 @@ namespace Othello_app
             board[4, 5] = 'O';
             board[5, 4] = 'O';
             board[5, 5] = 'X';
+
   
         }
 
@@ -530,7 +531,7 @@ namespace Othello_app
         public bool EndGame(bool BorW)
         {
             bool AnyValidMoves = false;
-            bool FullBoard = true;
+            bool AnyEmptyPlaces = false;
             for (int i = 1; i < 9; i++)
             {
                 for (int j = 1; j < 9; j++)
@@ -541,11 +542,16 @@ namespace Othello_app
                     }  
                     if (board[i,j] == ' ')
                     {
-                        FullBoard= false;
+                        AnyEmptyPlaces = true;
                     }
                 }
             }
-            return AnyValidMoves;
+            
+            if (AnyValidMoves | AnyEmptyPlaces)
+            {
+                return true;
+            }
+            return false;
         }
         public void Score()
         {
@@ -565,7 +571,7 @@ namespace Othello_app
                     }
                 }
             }
-            Console.WriteLine($"   Scoreboard:  O:{ScoreO}  X:{ScoreX}");
+            Console.WriteLine($"   Score:  O:{ScoreO}  X:{ScoreX}");
         }
     }
 }
