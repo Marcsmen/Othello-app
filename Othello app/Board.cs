@@ -7,8 +7,8 @@ namespace Othello_app
 {
     class GameBoard 
     {
-        const int ROWS = 10;  //Actual playable board is only 8x8, 
-        const int COLS = 10;  //needs to be 10x10 to validate move in all directions.
+        private int ROWS = 10;  //Actual playable board is only 8x8, 
+        private int COLS = 10;  //needs to be 10x10 to validate move in all directions.
         private char[,] board;
        
         public GameBoard()
@@ -56,7 +56,7 @@ namespace Othello_app
         }
 
         //Updates board in specific coordinates to either X or O.
-        public void UpdateBoard(int x, int y, bool BorW)
+        private void UpdateBoard(int x, int y, bool BorW)
         {
 
             if(BorW == true)
@@ -114,7 +114,9 @@ namespace Othello_app
             }
 
         }
-        public bool IsValidMove(int inputX, int inputY, bool BorW)
+
+        // Checks if a move can be made on a given x,y cordinate.
+        private bool IsValidMove(int inputX, int inputY, bool BorW)
         {
             
             char opponent = 'O';
@@ -261,8 +263,9 @@ namespace Othello_app
             }
         }
 
-        //Flips the appropriate "disks"
-        public void FlipDisks(int inputX, int inputY, bool BorW)
+        //Flips the appropriate "disks".
+        //Also has some additonal validation to not flip disks illegaly.
+        private void FlipDisks(int inputX, int inputY, bool BorW)
         {
             char own = 'X';
             char opponent = 'O';
@@ -528,6 +531,8 @@ namespace Othello_app
 
         }
 
+        // Checks if the board is full or if there are any valid moves to be made
+        // If either are true, the game ends.
         public bool EndGame(bool BorW)
         {
             bool AnyValidMoves = false;
@@ -553,6 +558,8 @@ namespace Othello_app
             }
             return false;
         }
+
+        //Keeps track of how many pieces of each type is pressent on board. 
         public void Score()
         {
             int ScoreO = 0;
