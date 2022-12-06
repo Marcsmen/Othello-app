@@ -10,6 +10,7 @@ namespace Othello_app
             bool Turn = true;
             GameBoard game = new GameBoard();
             
+            
             while (ContinueGame)
             {
                 Console.WriteLine();

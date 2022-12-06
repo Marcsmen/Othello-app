@@ -533,6 +533,7 @@ namespace Othello_app
 
         // Checks if the board is full or if there are any valid moves to be made
         // If either are true, the game ends.
+        // doesn't seem to work when there are no moves for either O or X.
         public bool EndGame(bool BorW)
         {
             bool AnyValidMoves = false;
@@ -549,10 +550,11 @@ namespace Othello_app
                     {
                         AnyEmptyPlaces = true;
                     }
+                    
                 }
             }
             
-            if (AnyValidMoves | AnyEmptyPlaces)
+            if (AnyValidMoves && AnyEmptyPlaces)
             {
                 return true;
             }
